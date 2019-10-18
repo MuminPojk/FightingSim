@@ -11,7 +11,11 @@ namespace FightingSim
         static void Main(string[] args)
         {
 
+            
             Fighter g1 = new Fighter();
+            Fighter g2 = new Fighter();
+
+            
 
             Console.WriteLine("Welcome to a Fighting sim");
             Console.WriteLine("Write player A`s name below");
@@ -24,10 +28,62 @@ namespace FightingSim
 
             Console.WriteLine("Let`s go");
 
-            g1.Attack();
+            while (g1.isAlive() == true && g2.isAlive() == true)
+            {
+                
+                    Console.ForegroundColor = ConsoleColor.Blue;
+
+                    Console.WriteLine(player1Name + " attacks");
+                    int randomAttack = g1.Attack();
+                    g2.Hurt(randomAttack);
+                    Console.WriteLine(player2Name + " health is " + g2.GetHp());
+
+                if (g1.isAlive() == true && g2.isAlive() == true)
+                {
+
+                    Console.ForegroundColor = ConsoleColor.Red;
+
+                    Console.WriteLine(player2Name + " attacks");
+                    randomAttack = g2.Attack();
+                    g1.Hurt(randomAttack);
+                    Console.WriteLine(player1Name + " health is " + g1.GetHp());
 
 
-            Console.ReadLine();
+                }
+
+
+
+            }
+
+
+            if (!g1.isAlive() || !g2.isAlive())
+            {
+                if (!g1.isAlive() && g2.isAlive() == true)
+                {
+                    Console.WriteLine(player2Name + " wins");
+                    Console.WriteLine("That was all my friends see you next time, in the fighting sim");
+
+                }
+                else if (g1.isAlive() == true && !g2.isAlive())
+                {
+
+
+                    Console.WriteLine(player1Name + " wins");
+                    Console.WriteLine("That was all my friends see you next time, in the fighting sim");
+
+                }
+                else
+                {
+                    Console.WriteLine(" No one wins");
+                    Console.WriteLine("That was all my friends see you next time, in the fighting sim");
+
+                }
+            }
+           
+            
+
+
+           Console.ReadLine();
         }
         static string Name()
         {
